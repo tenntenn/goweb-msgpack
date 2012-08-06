@@ -3,8 +3,9 @@ goweb-msgpack
 
 A plugin of goweb, it provides an implementation of msgpack formatter.
 It depend on following libraries:
-    + [goweb](https://code.google.com/p/goweb/)
-    + [msgpack](https://github.com/ugorji/go-msgpack)
+
+* [goweb](https://code.google.com/p/goweb/)
+* [msgpack](https://github.com/ugorji/go-msgpack)
 
 How to install
 -------------
