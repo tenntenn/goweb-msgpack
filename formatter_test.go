@@ -41,3 +41,21 @@ func TestFormatterFormat(t *testing.T) {
         t.Errorf("expect %v but actual %v.", expect, actual)
     }
 }
+
+// Test of gowebmsgpack.MsgpackFormatter.Match().
+func TestFormatterMatch(t *testing.T) {
+
+    // Create and regist formatter
+    formatter := new(MsgpackFormatter)
+    goweb.AddFormatter(formatter)
+
+    // Create context
+    r, _ := http.NewRequest("GET", "http://localhsot:8080", nil)
+    w := httptest.NewRecorder()
+    pathPrams := goweb.ParameterValueMap(make(map[string]string))
+    cx := &goweb.Context{r, w, pathPrams, MSGPACK_FORMAT}
+
+    if !formatter.Match(cx) {
+        t.Error("expect formatter.Match returns true but actual is false")
+    }
+}

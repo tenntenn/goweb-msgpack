@@ -21,12 +21,14 @@ type MsgpackFormatter struct {}
 // Readies response and converts input data into Msgpack.
 func (f *MsgpackFormatter) Format(cx *goweb.Context, input interface{}) ([]uint8, error) {
     // marshal msgpack
-    output, err := msgpack.Marshal(input)
+    output, err := msgpack.Marshal(input, nil)
     if err != nil {
         return nil, err
     }
 
-    cx.ResposeWriter.Header().Set(CONTENT_TYPE, MSGPACK_FORMAT)
+    cx.ResponseWriter.Header().Set(CONTENT_TYPE, MSGPACK_FORMAT)
+
+    return output, nil
 }
 
 // Gets the "application/x-msgpack" content type

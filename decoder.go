@@ -17,5 +17,5 @@ func (d *MsgpackRequestDecoder) Unmarshal(cx *goweb.Context, v interface{}) erro
         return err
     }
 
-    return msgpack.Unmarshal(data, v)
+    return msgpack.Unmarshal(data, v, nil)
 }
