@@ -29,45 +29,55 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+/*
+
+A plugin of goweb, it provides an implementation of msgpack formatter.
+It depend on following libraries:
+
+    * goweb (https://code.google.com/p/goweb/)
+    * msgpack (https://github.com/ugorji/go-msgpack)
+
+
+
+Installation
+
+    go get github.com/tenntenn/goweb-msgpack
+
+
+Usage
+
+This plugin provide implementations of goweb.Formatter and goweb.RequestDecoder.
+You can use MsgpackFormatter as following:
+
+    import gowebmsgpack "github.com/tenntenn/goweb-msgpack"
+    
+    //...
+    
+    // Add formatter
+    msgpackFormatter := new(gowebmsgpack.MsgpackFormatter)
+    goweb.AddFormatter(msgpackFormatter)
+
+    // regist handler
+    goweb.Map("/sample", handler)
+    
+    //...
+    
+    // In handler
+    func handler(cx *goweb.Context) {
+        data := []int{1, 2, 3}
+
+        cx.Format = gowebmsgpack.MSGPACK_FORMAT
+        cx.RespondWithData(data)
+    }
+
+MsgpackRequestDecoder is used as following:
+
+    // In handler
+    func handler(cx *goweb.Context) {
+        decoder := new(gowebmsgpack.MsgpackRequestDecoder)
+        var v []int
+        // decode from cx.Request.Body
+        decoder.Decode(cx, v)
+    }
+*/
 package gowebmsgpack
-
-import (
-	"bytes"
-	"code.google.com/p/goweb/goweb"
-	msgpack "github.com/ugorji/go-msgpack"
-	"net/http"
-	"net/http/httptest"
-	"testing"
-)
-
-// Test of MsgpackRequestDecoder.Decode().
-func TestDecoderDecode(t *testing.T) {
-
-	expect := []int{1, 2, 3}
-	body, _ := msgpack.Marshal(expect)
-
-	// Create context 
-	r, _ := http.NewRequest("GET", "http://localhsot:8080", bytes.NewBuffer(body))
-	w := httptest.NewRecorder()
-	pathPrams := goweb.ParameterValueMap(make(map[string]string))
-	cx := &goweb.Context{r, w, pathPrams, MSGPACK_FORMAT}
-
-	// Create Decoder
-	decoder := new(MsgpackRequestDecoder)
-
-	var actual []int
-	if err := decoder.Unmarshal(cx, &actual); err != nil {
-		t.Error(err)
-	}
-
-	if len(expect) != len(actual) {
-		t.Errorf("expect length of array is %d but actual is %d.", len(expect), len(actual))
-	}
-
-	for i := range expect {
-		if expect[i] != actual[i] {
-			t.Errorf("expect %dth element is %d but actual is %d", expect[i], actual[i])
-			break
-		}
-	}
-}

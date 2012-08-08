@@ -28,6 +28,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 package gowebmsgpack
 
 import (
@@ -64,7 +65,7 @@ func TestFormatterFormat(t *testing.T) {
 		data,
 		nil,
 	}
-	expect, _ := msgpack.Marshal(result, nil)
+	expect, _ := msgpack.Marshal(result)
 	cx.RespondWithData(data)
 	actual := w.Body.Bytes()
 	if !bytes.Equal(expect, actual) {

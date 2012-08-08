@@ -28,6 +28,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
+
 package gowebmsgpack
 
 import (
@@ -40,7 +41,7 @@ import (
 const CONTENT_TYPE string = "Content-Type"
 
 // Content-Type of msgcpak.
-const MSGPACK_CONTENT_TYPE string = "application/x-msgpack"
+const MSGPACK_CONTENT_TYPE string = "application/x-msgpack; charset=x-user-defined"
 
 // Constant string for Msgpack format.
 const MSGPACK_FORMAT string = "MSGPACK"
@@ -51,12 +52,12 @@ type MsgpackFormatter struct{}
 // Readies response and converts input data into Msgpack.
 func (f *MsgpackFormatter) Format(cx *goweb.Context, input interface{}) ([]uint8, error) {
 	// marshal msgpack
-	output, err := msgpack.Marshal(input, nil)
+	output, err := msgpack.Marshal(input)
 	if err != nil {
 		return nil, err
 	}
 
-	cx.ResponseWriter.Header().Set(CONTENT_TYPE, MSGPACK_FORMAT)
+	cx.ResponseWriter.Header().Set(CONTENT_TYPE, MSGPACK_CONTENT_TYPE)
 
 	return output, nil
 }
