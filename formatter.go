@@ -41,7 +41,7 @@ import (
 const CONTENT_TYPE string = "Content-Type"
 
 // Content-Type of msgcpak.
-const MSGPACK_CONTENT_TYPE string = "application/x-msgpack"
+const MSGPACK_CONTENT_TYPE string = "application/x-msgpack; charset=x-user-defined"
 
 // Constant string for Msgpack format.
 const MSGPACK_FORMAT string = "MSGPACK"
