@@ -57,7 +57,7 @@ func (f *MsgpackFormatter) Format(cx *goweb.Context, input interface{}) ([]uint8
 		return nil, err
 	}
 
-	cx.ResponseWriter.Header().Set(CONTENT_TYPE, MSGPACK_FORMAT)
+	cx.ResponseWriter.Header().Set(CONTENT_TYPE, MSGPACK_CONTENT_TYPE)
 
 	return output, nil
 }
