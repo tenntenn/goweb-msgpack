@@ -43,7 +43,7 @@ import (
 func TestDecoderDecode(t *testing.T) {
 
 	expect := []int{1, 2, 3}
-	body, _ := msgpack.Marshal(expect, nil)
+	body, _ := msgpack.Marshal(expect)
 
 	// Create context 
 	r, _ := http.NewRequest("GET", "http://localhsot:8080", bytes.NewBuffer(body))

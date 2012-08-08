@@ -51,7 +51,7 @@ type MsgpackFormatter struct{}
 // Readies response and converts input data into Msgpack.
 func (f *MsgpackFormatter) Format(cx *goweb.Context, input interface{}) ([]uint8, error) {
 	// marshal msgpack
-	output, err := msgpack.Marshal(input, nil)
+	output, err := msgpack.Marshal(input)
 	if err != nil {
 		return nil, err
 	}

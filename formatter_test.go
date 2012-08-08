@@ -64,7 +64,7 @@ func TestFormatterFormat(t *testing.T) {
 		data,
 		nil,
 	}
-	expect, _ := msgpack.Marshal(result, nil)
+	expect, _ := msgpack.Marshal(result)
 	cx.RespondWithData(data)
 	actual := w.Body.Bytes()
 	if !bytes.Equal(expect, actual) {
