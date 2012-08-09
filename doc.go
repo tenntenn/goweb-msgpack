@@ -50,18 +50,18 @@ This plugin provide implementations of goweb.Formatter and goweb.RequestDecoder.
 You can use MsgpackFormatter as following:
 
     import gowebmsgpack "github.com/tenntenn/goweb-msgpack"
-    
+
     //...
-    
+
     // Add formatter
     msgpackFormatter := new(gowebmsgpack.MsgpackFormatter)
     goweb.AddFormatter(msgpackFormatter)
 
     // regist handler
     goweb.Map("/sample", handler)
-    
+
     //...
-    
+
     // In handler
     func handler(cx *goweb.Context) {
         data := []int{1, 2, 3}
